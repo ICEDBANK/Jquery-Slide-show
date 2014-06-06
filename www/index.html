@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Untitled Document</title>
+<style type="text/css">
+.thumbnails img {
+	width:80px;
+	height:80px;
+	cursor:pointer;
+	opacity:.5;
+}
+.thumbnails img:hover{
+	opacity:1;
+	
+}
+.thumbnails img.thumbnail-active{
+	opacity:1;
+}
+.thumbnails{
+	background:#000;
+}
+</style>
+<script type="text/javascript">
+window.addEventListener("DOMContentLoaded", function (){
+	
+	var targetThumbnails = (document.getElementsByClassName("thumbnails")[0]); // searches DOM for the element class name, 1st element
+
+	var pics = document.getElementById("pic1");
+	
+	var getImageList = function(){
+		
+		var imageArray = (targetThumbnails.getElementsByTagName("img"));
+		
+		for(var i = 0; i < imageArray.length; i++){
+		
+			var image = imageArray.item(i);
+			
+			image.className = image.className.replace(/\s*thumbnail\-active/, "");	// regex removes "thumnail-active" class name
+																					// and puts in a empty string
+			
+		}
+		
+	}
+
+	targetThumbnails.addEventListener("click", function(ev){ // ev is eventobject.
+
+		var target = ev.originalTarget;
+		
+		if(target.tagName == "IMG"){
+		
+			console.log(target.tagName);
+			
+			pics.src = target.src; //src is a attribute the actual content inside is the src
+			
+			getImageList();
+			
+			target.className += " thumbnail-active";
+			
+		}
+	});
+	
+	
+});
+ // this is not ready to run until eventlistener is initialized
+
+</script>
+</head>
+
+<body>
+	<div class= "container">
+    	<img src="292.jpg" id="pic1"  />
+        <div class = "thumbnails">
+        	<img src="292.jpg" class="thumbnail-active"  />
+        	<img src="2454.jpg" />
+        	<img src="2453.jpg"  />
+    	</div>
+    </div>
+</body>
+</html>
